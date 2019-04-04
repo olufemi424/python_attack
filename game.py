@@ -5,8 +5,9 @@ game_running = True
 game_results = []
 
 
-def calculate_monster_attack():  # create a random monster attack
-    return randint(monster['attack_min'], monster['attack_max'])
+# create a random monster attack
+def calculate_monster_attack(attack_min, attack_max):
+    return randint(attack_min,  attack_max)
 
 
 def game_ends(winner_name):  # print winner function
@@ -63,6 +64,7 @@ while game_running == True:
         print('1) Attack')
         print('2) Heal')
         print('3) Exit Game')
+        print('4) Show Result')
 
       # get player choice
         player_choice = input()
@@ -70,7 +72,8 @@ while game_running == True:
 
         # check player choice
         if player_choice == '1':
-            monster_attack = calculate_monster_attack()  # monster attack function
+            monster_attack = calculate_monster_attack(
+                monster['attack_min'], monster['attack_max'])  # monster attack function
 
             # eack attack is fired both ways, the player get hit, and monster get hit
             # and check if the moster is still with health or deal, the player get hit each time an attacl is fired as long as the monster is still alive
@@ -86,7 +89,8 @@ while game_running == True:
 
       # heal choice
         elif player_choice == '2':
-            monster_attack = calculate_monster_attack()  # monster attack function
+            monster_attack = calculate_monster_attack(
+                monster['attack_min'], monster['attack_max'])   # monster attack function
 
          # increase player health with player heal value
             player['health'] = player['health'] + player['heal']
@@ -100,6 +104,10 @@ while game_running == True:
             new_round = False
             game_running = False
             print('Game Exit')
+
+        elif player_choice == '4':
+            for player_stats in game_results:
+                print(player_stats)
 
       #  choice not an option
         else:
@@ -116,7 +124,6 @@ while game_running == True:
             round_result = {
                 'name': player['name'], 'health': player['health'], 'rounds': counter}
             game_results.append(round_result)
-            print(game_results)
             new_round = False
 
         if monster_won:
@@ -124,5 +131,4 @@ while game_running == True:
             round_result = {
                 'name': player['name'], 'health': player['health'], 'rounds': counter}
             game_results.append(round_result)
-            print(game_results)
             new_round = False
