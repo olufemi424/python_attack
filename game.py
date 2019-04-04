@@ -2,27 +2,27 @@ from random import randint
 
 # init game start
 game_running = True
+game_results = []
 
 
-def calculate_monster_attack():
-    # create a random monster attack
+def calculate_monster_attack():  # create a random monster attack
     return randint(monster['attack_min'], monster['attack_max'])
 
 
-def game_ends(winner_name):
-    print(winner_name + ' won ')
+def game_ends(winner_name):  # print winner function
+    print(f'{winner_name} Won The Game')
 
 
 # while game is running
 while game_running == True:
 
-   # create plater and monster with their details
-
-   #  Init new round
+    # create plater and monster with their details
+    counter = 0
+    #  Init new round
     new_round = True
     # Dictionary
 
-   #  player details
+    #  player details
     player = {
         'name': 'Olufemi',
         'attack': 13,
@@ -30,7 +30,7 @@ while game_running == True:
         'health': 100
     }
 
-   # monster details
+    # monster details
     monster = {
         'name': 'Max',
         'attack_min': 10,
@@ -38,20 +38,21 @@ while game_running == True:
         'health': 100
     }
 
-   # get player name
+    # get player name
     print('---' * 7)
     print('Enter player name')
     player['name'] = input()
 
-   # display player and monster info
+    # display player and monster info
     print('---' * 7)
     print(player['name'] + ' has ' + str(player['health']) + ' health.')
     print(monster['name'] + ' monster has ' +
           str(monster['health']) + ' health.')
 
-   # always start a new round if the player doesnt quit
+    # always start a new round if the player doesnt quit
     while new_round == True:
 
+        counter = counter + 1
       #  init wining status
         player_won = False
         monster_won = False
@@ -112,11 +113,16 @@ while game_running == True:
 
         elif player_won:
             game_ends(player['name'])
+            round_result = {
+                'name': player['name'], 'health': player['health'], 'rounds': counter}
+            game_results.append(round_result)
+            print(game_results)
             new_round = False
 
         if monster_won:
             game_ends(monster['name'])
+            round_result = {
+                'name': player['name'], 'health': player['health'], 'rounds': counter}
+            game_results.append(round_result)
+            print(game_results)
             new_round = False
-
-            # print(monster['health'])
-            # print(player['health'])
